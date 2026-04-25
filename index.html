@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        ALA3
+    </title>
+    <body>
+        <h1>
+            MAC-Based Message Authentication using HMAC (SHA-256) 
+        </h1>
+        <h5 style="background-color: rgb(116, 216, 236); font-family: 'Times New Roman', Times, serif;">
+            # MAC-Based Message Authentication using HMAC<br>
+
+import hmac<br>
+import hashlib<br>
+<br>
+# Shared Secret Key (Must be same for sender & receiver)<br>
+secret_key = b"gmiu_shared_secret"<br>
+<br>
+# ----------------------<br>
+# Sender Side<br>
+# ----------------------<br>
+print("====== SENDER ======")<br>
+<br>
+message = input("Enter message to send: ")<br>
+message_bytes = message.encode()<br>
+<br>
+# Generate HMAC using SHA-256<br>
+mac = hmac.new(secret_key, message_bytes, hashlib.sha256).hexdigest()<br>
+<br>
+print("Generated MAC:", mac)<br>
+<br>
+# Simulate sending message and MAC<br>
+received_message = message<br>
+received_mac = mac<br>
+<br>
+
+# ----------------------<br>
+# Receiver Side<br>
+# ----------------------<br>
+print("\n====== RECEIVER ======")<br>
+
+# Receiver generates MAC again using same key<br>
+new_mac = hmac.new(secret_key, received_message.encode(), hashlib.sha256).hexdigest()<br>
+
+print("Received MAC :", received_mac)<br>
+print("Generated MAC:", new_mac)<br>
+<br>
+if hmac.compare_digest(received_mac, new_mac):<br>
+    print("✅ Message is Authentic and Not Modified!")<br>
+else:<br>
+    print("❌ Message Tampered or Invalid!")<br>
+        </h5>
+        <h1> Output</h1>
+        <img src="img3.JPG" alt="image not found">
+    </body>
+</html>
